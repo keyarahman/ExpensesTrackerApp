@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, SafeAreaView } from "react-native";
 import React, { useCallback, useLayoutEffect, useMemo } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootParamList } from "../navigators/RootNavigator"
@@ -54,13 +54,13 @@ const CategoryScreen = ({
 
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         position: "relative",
       }}
     >
-      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center', height: "10%", padding: 10, backgroundColor: "white" }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center', height: "7%", padding: 10, backgroundColor: "white", borderWidth: .3 }}>
         <TouchableOpacity
           onPress={() =>
             navigation.goBack()
@@ -89,7 +89,7 @@ const CategoryScreen = ({
         renderItem={({ item }) => <ExpanseRow hideCategory expanse={item} />}
       />
       <FAButton onPress={onAddExpansePress} />
-    </View>
+    </SafeAreaView>
   );
 };
 

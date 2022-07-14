@@ -22,7 +22,7 @@ const AddExpanseNavigator = () => {
         <AddExpanseStack.Screen
           name="Index"
           component={AddExpanseScreen}
-          options={{ title: "Add Expanse", headerTitleAlign: "center" }}
+          options={{ title: "Add Expanse", headerTitleAlign: "center", }}
         />
         <AddExpanseStack.Screen
           name="SelectCategory"

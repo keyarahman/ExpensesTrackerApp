@@ -11,6 +11,8 @@ import {
 import { useAppDispatch, useAppSelector } from "../store";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootParamList } from '../navigators/RootNavigator';
+import { restoreExpansesAsync } from "../store/reducers/expanse/expanseActions";
+import FAButton from '../components/FAButton';
 type DrawerScreenProps = NativeStackScreenProps<RootParamList, "List">;
 const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
   const categories = useAppSelector((state) => state.category.categories);
@@ -24,7 +26,7 @@ const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
       {
         label: "All",
         onPress: () => {
-          navigation.navigate("AllExpenses");
+          navigation.navigate("AllExpenses")
         },
         icon: <MaterialIcons name="all-inclusive" size={24} />,
         badge: expenses.length,
@@ -32,7 +34,7 @@ const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
       {
         label: "Default",
         onPress: () => {
-
+          navigation.navigate("DefaultScreen");
         },
         icon: <MaterialIcons name="list" size={24} />,
         badge: expenses.filter((item) => !item.category).length,
@@ -61,8 +63,14 @@ const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
   }, [categories]);
   useEffect(() => {
     dispatch(restoreCategoriesAsync());
+    dispatch(restoreExpansesAsync());
 
   }, []);
+  const onAddExpansePress = useCallback(() => {
+    navigation.push("AddExpanse", {
+      screen: "Index",
+    });
+  }, [navigation]);
   return (
     <>
       <DialogInput isDialogVisible={isDialogVisible}
@@ -84,8 +92,10 @@ const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
             actionIcon={<MaterialIcons name="add" size={24} />}
             onActionPress={onAddCategoryPress}
           />
+
         </SafeAreaView>
       </ScrollView>
+      <FAButton onPress={onAddExpansePress} />
 
     </>
   )

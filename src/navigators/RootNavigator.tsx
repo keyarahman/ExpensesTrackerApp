@@ -6,15 +6,19 @@ import AllExpensesScreen from '../screens/AllExpensesScreen';
 import DrawerScreen from '../screens/DrawerScreen';
 import AddExpanseNavigator, { AddExpanseParamList } from './AddExpanseNavigator';
 import CategoryScreen from '../screens/CategoryScreen';
-
+import FilterExpansesNavigator, {
+  FilterExpanseParamList,
+} from "./FilterExpansesNavigator";
+import DefaultExpensesScreen from '../screens/DefaultExpensesScreen';
 export type RootParamList = {
   List: undefined;
   AllExpenses: undefined;
+  DefaultScreen: undefined;
   Category: {
     id: string;
   };
   AddExpanse: NavigatorScreenParams<AddExpanseParamList>;
-
+  FilterExpanses: NavigatorScreenParams<FilterExpanseParamList>;
 };
 const RootStack = createNativeStackNavigator<RootParamList>();
 const RootNavigator = () => {
@@ -24,15 +28,21 @@ const RootNavigator = () => {
         <RootStack.Screen
           name="AllExpenses"
           component={AllExpensesScreen}
-          options={{ headerTitle: 'All Expenses' }}
+          options={{ headerTitle: 'All Expenses', headerShown: false }}
         />
         <RootStack.Screen
           name="List"
           component={DrawerScreen}
           options={{ title: 'Menu' }}
         />
-        <RootStack.Screen name="Category" component={CategoryScreen} />
-        <RootStack.Screen name="AddExpanse" component={AddExpanseNavigator} />
+        <RootStack.Screen name="Category" component={CategoryScreen} options={{ headerShown: false }} />
+        <RootStack.Screen name="DefaultScreen" component={DefaultExpensesScreen} />
+        <RootStack.Screen name="AddExpanse" component={AddExpanseNavigator} options={{ headerShown: false }} />
+        <RootStack.Screen
+          name="FilterExpanses"
+          component={FilterExpansesNavigator}
+          options={{ headerShown: false }}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );

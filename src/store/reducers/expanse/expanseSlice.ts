@@ -2,19 +2,36 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Expanse } from "../../../types/expanse";
 import { addExpanseAsync, restoreExpansesAsync } from "./expanseActions";
 
+export type SortBy = "createdAt" | "updatedAt" | "title" | "category";
+export type FilterBy = "year" | "month" | "week" | "today" | "lifetime";
+export type OrderBy = "asc" | "desc";
 type ExpanseState = {
   expanses: Expanse[];
+  sortBy: SortBy;
+  filterBy: FilterBy;
+  orderBy: OrderBy;
 };
 
 export const initialState: ExpanseState = {
   expanses: [],
+  sortBy: "createdAt",
+  filterBy: "lifetime",
+  orderBy: "desc",
 };
 
 export const expanseSlice = createSlice({
   name: "expanse",
   initialState,
   reducers: {
- 
+    setFilterBy: (state:any, action: PayloadAction<FilterBy>) => {
+      state.filterBy = action.payload;
+    },
+    setSortBy: (state:any, action: PayloadAction<SortBy>) => {
+      state.sortBy = action.payload;
+    },
+    setOrderBy: (state:any, action: PayloadAction<OrderBy>) => {
+      state.orderBy = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addExpanseAsync.fulfilled, (state, action) => {

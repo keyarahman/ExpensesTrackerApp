@@ -78,7 +78,7 @@ const AllExpansesScreen = ({ navigation,
         position: "relative",
       }}
     >
-      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center', height: "10%", padding: 10, backgroundColor: "white" }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center', height: "7%", padding: 10, backgroundColor: "white", borderWidth: .3 }}>
         <TouchableOpacity
           onPress={() =>
             navigation.goBack()
@@ -87,7 +87,7 @@ const AllExpansesScreen = ({ navigation,
           <MaterialIcons name="arrow-back" size={24} />
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 14, fontWeight: "500", color: "black" }}> ALl Expenses</Text>
+        <Text style={{ fontSize: 14, fontWeight: "700", }}> ALl Expenses</Text>
         <TouchableOpacity
           onPress={() =>
             navigation.push("FilterExpanses", {

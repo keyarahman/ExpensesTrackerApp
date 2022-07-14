@@ -73,7 +73,7 @@ const AddExpanseScreen = ({ navigation, route }: AddExpanseScreenProps) => {
   }, [navigation, route]);
 
   return (
-    <ScrollView style={{ flex: 1, paddingVertical: 16 }}>
+    <ScrollView style={{ flex: 1, }}>
       <TextInput
         placeholder="Title"
         style={{

@@ -14,7 +14,7 @@ import { RootParamList } from '../navigators/RootNavigator';
 type DrawerScreenProps = NativeStackScreenProps<RootParamList, "List">;
 const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
   const categories = useAppSelector((state) => state.category.categories);
-
+  const expenses = useAppSelector((state) => state.expanse.expanses);
   const dispatch = useAppDispatch();
   const [categoriName, setCategoriName] = useState("")
   const [isDialogVisible, setIsVisible] = useState(false)
@@ -24,10 +24,10 @@ const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
       {
         label: "All",
         onPress: () => {
-
+          navigation.navigate("AllExpenses");
         },
         icon: <MaterialIcons name="all-inclusive" size={24} />,
-
+        badge: expenses.length,
       },
       {
         label: "Default",
@@ -35,7 +35,7 @@ const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
 
         },
         icon: <MaterialIcons name="list" size={24} />,
-
+        badge: expenses.filter((item) => !item.category).length,
       },
     ];
   }, [navigation, categories]);
@@ -44,7 +44,12 @@ const DrawerScreen = ({ navigation }: DrawerScreenProps) => {
       categories.map((category) => ({
         icon: <MaterialIcons name="list" size={24} />,
         label: category.name,
+        onPress: () =>
+          navigation.navigate("Category", {
+            id: category.id,
+          }),
 
+        badge: expenses.filter((item) => item.category === category.id).length,
 
       })),
     [navigation, categories]
@@ -94,7 +99,7 @@ export type ListProps = {
   onActionPress?: () => void;
   items: {
     label: string;
-
+    badge?: number;
     onPress?: () => void;
     icon: ReactNode;
   }[];
@@ -171,7 +176,11 @@ const ListItem = ({ label, onPress, icon, badge }: ListItemProps) => {
       <Text style={{ fontSize: 16, flex: 1 }} numberOfLines={1}>
         {label}
       </Text>
-
+      {!!badge && (
+        <Text style={{ fontSize: 14, paddingHorizontal: 8, opacity: 0.5 }}>
+          {badge}
+        </Text>
+      )}
       <MaterialIcons name="chevron-right" size={24} style={{ opacity: 0.5 }} />
     </TouchableOpacity>
   );
